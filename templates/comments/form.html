@@ -1,0 +1,29 @@
+{% load comments i18n %}
+<form action="{% comment_form_target %}" method="post">{% csrf_token %}
+  {% if next %}<div><input type="hidden" name="next" value="{{ next }}" /></div>{% endif %}
+
+
+  {% if user.is_authenticated %}
+    {% get_comment_form for object as form %}
+    <form action="{% comment_form_target %}" method="POST">
+    {% csrf_token %}
+    {{ form.comment }}
+    {{ form.content_type }}
+    {{ form.object_pk }}
+    {{ form.timestamp }}
+    {{ form.security_hash }}
+    <br/>
+    <input type="hidden" name="next" value="{{BASE_DIR}}/questions/{{ question.id}}"/>
+    <input type="submit" value="Ответить" id="id_submit" />
+    
+    </form>
+{% else %}
+    <p>Пожалуйста <a href="{% url 'auth_login' %}">войдите</a>
+    чтобы оставить комментарий</p>
+
+    
+
+{% endif %}
+
+
+</form>

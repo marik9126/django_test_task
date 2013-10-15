@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<a href='/questions/'> << к списку вопросов</a>
+
+    <h2>{{ question.title }}</h2>
+    <p>{{ question.content }}</p>
+    <span>{{ question.datetime }}</span>
+    <span style="float: right;"><b>Автор: {{ question.author }}</b>&nbsp;&nbsp;&nbsp;</span>
+    </b>
+
+    <div id="comments">
+
+        {% load comments %}
+        {% get_comment_count for question as comment_count %}
+        <h4>Ответы({{ comment_count }}):</h4>
+        {% get_comment_list for question as comment_list %}
+        {% for comment in comment_list %}
+            <div class="answer">
+                <span>{{ comment.user_name }}:</span> 
+                <p class='answer-text'>{{ comment.comment }}</p>
+            </div>
+        {% endfor %}
+        <h4>Ответить: </h4>
+        {% render_comment_form for question %}
+
+    </div>
+
+{% endblock %}

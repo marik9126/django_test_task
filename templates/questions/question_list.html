@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    
+    {% for question in object_list %}
+
+        <hr>
+        <p><span class="user">{{ question.author }}</span> спрашивает: </p>
+        <h2><a href="{{ question.get_absolute_url }}">{{ question.title }}</a></h2>
+        <p class="question-content">{{ question.content|truncatechars:103}}</p>
+        <small><i> Вопрос задан: {{ question.datetime}}</i></small>
+        <hr>
+    {% empty %}
+    <p>Нет вопросов</p>
+    <p><a href='/questions/create'>Задать вопрос?</a></p>
+    {% endfor %}
+
+
+
+{% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                
+                <p style='text-align: center' class="page-current">
+                    {{ page_obj.number }} из {{ page_obj.paginator.num_pages }}
+                </p>
+                
+                <p style='text-align: center'>
+                {% if page_obj.has_previous %}
+                    <a href="/questions?page={{ page_obj.previous_page_number }}">&lt;&lt; Туда</a>
+                {% endif %}
+                {% if page_obj.has_next %}
+                    <a href="/questions?page={{ page_obj.next_page_number }}"> Сюда &gt;&gt;</a>
+                {% endif %}
+                </p>
+            </span>
+        </div>
+    {% endif %}
+
+{% endblock %}

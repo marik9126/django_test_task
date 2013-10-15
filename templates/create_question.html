@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Create new question{% endblock %}
+
+ 
+
+{% block content_title %}
+  <h2>Create new question</h2>
+{% endblock %}
+
+
+
+{% block content %}
+
+{% if user.is_authenticated %}
+
+  <form action="" method="post">{% csrf_token %}
+
+{{ form.as_p }}
+
+    <p>    <button type="submit">Ask!</button>    </p>
+
+  </form>
+  {% else %}
+<p>   
+    Чтобы задать вопрос вы должы быть авторизованы. <a href="{% url 'auth_login' %}"> Войти?</a>
+</p>
+
+{% endif %}
+
+{% endblock %}
+
+
+

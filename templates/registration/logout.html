@@ -1,0 +1,13 @@
+{% extends "registration/base_registration.html" %}
+
+
+{% block title %}Logged out{% endblock %}
+{% block body_class %}{{ block.super }} logout{% endblock %}
+
+
+
+
+{% block content %}
+  <!-- {# <form action="{% url django.contrib.auth.views.login %}" method="post" class="login_form">{% csrf_token %} #} -->
+Вы вышли, чтобы задавать вопросы и отвечать вам необходимо <a href="{% url 'auth_login' %}"> войти.</a>
+{% endblock %}
